@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require test/setup.js",
+    "test": "mocha --require test/setup.js --exit",
     "dev": "nodemon src/server.js",
     "migrate": "postgrator --config postgrator-config.js",
     "migrate:test": "env NODE_ENV=test npm run migrate",
@@ -22,7 +22,8 @@
     "helmet": "^3.21.2",
     "knex": "^0.20.4",
     "morgan": "^1.9.1",
-    "pg": "^7.14.0"
+    "pg": "^7.14.0",
+    "xss": "^1.0.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",
