@@ -3,7 +3,7 @@ const knex = require("knex");
 const app = require("../src/app");
 const { makeFoldersArray } = require("./folders.fixtures");
 
-describe.only("Folders Endpoints", () => {
+describe("Folders Endpoints", () => {
   let db;
 
   before("make knex instance", () => {
@@ -135,6 +135,55 @@ describe.only("Folders Endpoints", () => {
             supertest(app)
               .get(`/api/folders`)
               .expect(expectedFolders);
+          });
+      });
+    });
+  });
+
+  describe.only("PATCH /api/folders/:id", () => {
+    context("given no data in the folders table", () => {
+      it("responds with status 404", () => {
+        const folderId = 1;
+        return supertest(app)
+          .get(`/api/folders/${folderId}`)
+          .expect(404, { error: { message: "Folder doesn't exist" } });
+      });
+    });
+
+    context("Given there is data in the folders table", () => {
+      const testFolders = makeFoldersArray();
+
+      beforeEach("Insert test folder into folders table", () => {
+        return db.into("folders").insert(testFolders);
+      });
+
+      it("responds with status 204 and updates the folder", () => {
+        const folderIdToUpdate = 1;
+        const updateFolder = {
+          folder_name: "Patch Folder Test"
+        };
+        const expectedFolder = {
+          ...testFolders[folderIdToUpdate - 1],
+          ...updateFolder
+        };
+        return supertest(app)
+          .patch(`/api/folders/${folderIdToUpdate}`)
+          .send(updateFolder)
+          .expect(204)
+          .then(res => {
+            supertest(app)
+              .get(`/api/folders/${folderIdToUpdate}`)
+              .expect(expectedFolder);
+          });
+      });
+
+      it("responds with status 400 when required fields are missing in the request body", () => {
+        const folderIdToUpdate = 1;
+        return supertest(app)
+          .patch(`/api/folders/${folderIdToUpdate}`)
+          .send({ keyNotInFolders: "Irrelevant Value" })
+          .expect(400, {
+            error: { message: "Request body must contain 'folder_name'" }
           });
       });
     });
