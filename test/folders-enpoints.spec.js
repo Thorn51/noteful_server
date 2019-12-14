@@ -16,7 +16,7 @@ describe("Folders Endpoints", () => {
 
   after("disconnect from db", () => db.destroy());
 
-  before("clean the table", () =>
+  before("clean data from folder and notes table", () =>
     db.raw("TRUNCATE folders, notes RESTART IDENTITY CASCADE")
   );
 
@@ -140,7 +140,7 @@ describe("Folders Endpoints", () => {
     });
   });
 
-  describe.only("PATCH /api/folders/:id", () => {
+  describe("PATCH /api/folders/:id", () => {
     context("given no data in the folders table", () => {
       it("responds with status 404", () => {
         const folderId = 1;
