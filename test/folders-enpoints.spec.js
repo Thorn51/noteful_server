@@ -48,7 +48,7 @@ describe("Folders Endpoints", () => {
     });
   });
 
-  describe("GET /api/articles/:id", () => {
+  describe("GET /api/folders/:id", () => {
     context("Given no data in the folders table", () => {
       it("responds with status 404", () => {
         const folderId = 123123;
@@ -65,7 +65,7 @@ describe("Folders Endpoints", () => {
         return db.into("folders").insert(testFolders);
       });
 
-      it("GET /api/folders/:id responds with status 200 and the folder specified by the id", () => {
+      it("responds with status 200 and the folder specified by the id", () => {
         const folderId = 1;
         const expectedFolder = testFolders[folderId - 1];
         return supertest(app)
