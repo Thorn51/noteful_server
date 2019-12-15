@@ -5,7 +5,7 @@ function makeNotesArray() {
       note_name: "Test Note 1",
       note_text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      modified: new Date(),
+      modified: "2019-12-05T16:28:32.615Z",
       folderid: 1
     },
     {
@@ -13,7 +13,7 @@ function makeNotesArray() {
       note_name: "Test Note 2",
       note_text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      modified: new Date(),
+      modified: "2019-12-05T16:28:32.615Z",
       folderid: 2
     },
     {
@@ -21,7 +21,7 @@ function makeNotesArray() {
       note_name: "Test Note 3",
       note_text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      modified: new Date(),
+      modified: "2019-12-05T16:28:32.615Z",
       folderid: 3
     },
     {
@@ -29,7 +29,7 @@ function makeNotesArray() {
       note_name: "Test Note 4",
       note_text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      modified: new Date(),
+      modified: "2019-12-05T16:28:32.615Z",
       folderid: 1
     },
     {
@@ -37,7 +37,7 @@ function makeNotesArray() {
       note_name: "Test Note 5",
       note_text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      modified: new Date(),
+      modified: "2019-12-05T16:28:32.615Z",
       folderid: 2
     },
     {
@@ -45,7 +45,7 @@ function makeNotesArray() {
       note_name: "Test Note 6",
       note_text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      modified: new Date(),
+      modified: "2019-12-05T16:28:32.615Z",
       folderid: 3
     }
   ];
