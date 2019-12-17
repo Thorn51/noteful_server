@@ -29,6 +29,7 @@ describe("Folders Endpoints", () => {
       it("responds with status 200 and an empty array", () => {
         return supertest(app)
           .get("/api/folders")
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(200, []);
       });
     });
@@ -43,6 +44,7 @@ describe("Folders Endpoints", () => {
       it("GET /api/folders returns status 200 and all of the folders", () => {
         return supertest(app)
           .get("/api/folders")
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(200, testFolders);
       });
     });
@@ -54,6 +56,7 @@ describe("Folders Endpoints", () => {
         const folderId = 123123;
         return supertest(app)
           .get(`/api/folders/${folderId}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(404, { error: { message: "Folder doesn't exist" } });
       });
     });
@@ -70,6 +73,7 @@ describe("Folders Endpoints", () => {
         const expectedFolder = testFolders[folderId - 1];
         return supertest(app)
           .get(`/api/folders/${folderId}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(200, expectedFolder);
       });
     });
@@ -82,6 +86,7 @@ describe("Folders Endpoints", () => {
       };
       return supertest(app)
         .post("/api/folders")
+        .set("Authorization", `Bearer ` + process.env.API_TOKEN)
         .send(newFolder)
         .expect(201)
         .expect(res => {
@@ -93,6 +98,7 @@ describe("Folders Endpoints", () => {
         .then(postRes =>
           supertest(app)
             .get(`/api/folders/${postRes.body.id}`)
+            .set("Authorization", `Bearer ` + process.env.API_TOKEN)
             .expect(postRes.body)
         );
     });
@@ -100,6 +106,7 @@ describe("Folders Endpoints", () => {
     it("responds with status 400 and an error message when folder_name is missing", () => {
       return supertest(app)
         .post(`/api/folders`)
+        .set("Authorization", `Bearer ` + process.env.API_TOKEN)
         .send({})
         .expect(400, {
           error: { message: "Missing folder name in request body" }
@@ -113,6 +120,7 @@ describe("Folders Endpoints", () => {
         const missingId = 123123;
         return supertest(app)
           .delete(`/api/folders/${missingId}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(404, { error: { message: "Folder doesn't exist" } });
       });
     });
@@ -130,6 +138,7 @@ describe("Folders Endpoints", () => {
         );
         return supertest(app)
           .delete(`/api/folders/${folderIdToRemove}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(204)
           .then(res => {
             supertest(app)
@@ -146,6 +155,7 @@ describe("Folders Endpoints", () => {
         const folderId = 1;
         return supertest(app)
           .get(`/api/folders/${folderId}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(404, { error: { message: "Folder doesn't exist" } });
       });
     });
@@ -168,6 +178,7 @@ describe("Folders Endpoints", () => {
         };
         return supertest(app)
           .patch(`/api/folders/${folderIdToUpdate}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .send(updateFolder)
           .expect(204)
           .then(res => {
@@ -181,6 +192,7 @@ describe("Folders Endpoints", () => {
         const folderIdToUpdate = 1;
         return supertest(app)
           .patch(`/api/folders/${folderIdToUpdate}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .send({ keyNotInFolders: "Irrelevant Value" })
           .expect(400, {
             error: { message: "Request body must contain 'folder_name'" }

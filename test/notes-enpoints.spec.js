@@ -4,7 +4,7 @@ const app = require("../src/app");
 const { makeFoldersArray } = require("./folders.fixtures");
 const { makeNotesArray } = require("./notes.fixtures");
 
-describe("Notes Endpoints", () => {
+describe.only("Notes Endpoints", () => {
   let db;
 
   before("make knex instance", () => {
@@ -30,6 +30,7 @@ describe("Notes Endpoints", () => {
       it("responds with status 200 and an empty array", () => {
         return supertest(app)
           .get("/api/notes")
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(200, []);
       });
     });
@@ -50,6 +51,7 @@ describe("Notes Endpoints", () => {
       it("GET /api/notes returns status 200 and all of the notes", () => {
         return supertest(app)
           .get("/api/notes")
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(200, testNotes);
       });
     });
@@ -61,6 +63,7 @@ describe("Notes Endpoints", () => {
         const noteId = 123123;
         return supertest(app)
           .get(`/api/notes/${noteId}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(404, { error: { message: "Note doesn't exist" } });
       });
     });
@@ -83,6 +86,7 @@ describe("Notes Endpoints", () => {
         const expectedNote = testNotes[noteId - 1];
         return supertest(app)
           .get(`/api/notes/${noteId}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(200, expectedNote);
       });
     });
@@ -103,6 +107,7 @@ describe("Notes Endpoints", () => {
       };
       return supertest(app)
         .post(`/api/notes`)
+        .set("Authorization", `Bearer ` + process.env.API_TOKEN)
         .send(newNote)
         .expect(201)
         .expect(res => {
@@ -116,6 +121,7 @@ describe("Notes Endpoints", () => {
         .then(postRes => {
           supertest(app)
             .get(`/api/notes/${postRes.body.id}`)
+            .set("Authorization", `Bearer ` + process.env.API_TOKEN)
             .expect(postRes.body);
         });
     });
@@ -133,6 +139,7 @@ describe("Notes Endpoints", () => {
 
         return supertest(app)
           .post("/api/notes")
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .send(newArticle)
           .expect(400, {
             error: { message: `Missing '${field}' in request body` }
@@ -147,6 +154,7 @@ describe("Notes Endpoints", () => {
         const missingId = 123123;
         return supertest(app)
           .delete(`/api/notes/${missingId}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(404, { error: { message: "Note doesn't exist" } });
       });
     });
@@ -172,6 +180,7 @@ describe("Notes Endpoints", () => {
 
         return supertest(app)
           .delete(`/api/notes/${noteIdToRemove}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(204)
           .then(res => {
             supertest(app)
@@ -182,12 +191,13 @@ describe("Notes Endpoints", () => {
     });
   });
 
-  describe.only("PATCH /api/notes/:id", () => {
+  describe("PATCH /api/notes/:id", () => {
     context("given no data in the notes table", () => {
       it("responds with status 404", () => {
         const folderid = 1;
         return supertest(app)
           .patch(`/api/notes/${folderid}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .expect(404, { error: { message: "Note doesn't exist" } });
       });
     });
@@ -217,11 +227,13 @@ describe("Notes Endpoints", () => {
         };
         return supertest(app)
           .patch(`/api/notes/${noteId}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .send(updateNote)
           .expect(204)
           .then(res => {
             supertest(app)
               .get(`/api/notes/${noteId}`)
+              .set("Authorization", `Bearer ` + process.env.API_TOKEN)
               .expect(expectedNote);
           });
       });
@@ -230,6 +242,7 @@ describe("Notes Endpoints", () => {
         const noteIdToUpdate = 1;
         return supertest(app)
           .patch(`/api/notes/${noteIdToUpdate}`)
+          .set("Authorization", `Bearer ` + process.env.API_TOKEN)
           .send({ keyNotInNotes: "Whatever Value" })
           .expect(400, {
             error: {
