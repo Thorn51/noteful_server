@@ -2,7 +2,7 @@ const FoldersService = require("../src/folders/folders-service");
 const knex = require("knex");
 const { makeFoldersArray } = require("./folders.fixtures");
 
-describe("Folders service object", () => {
+describe.skip("Folders service object", () => {
   let db;
 
   before(() => {

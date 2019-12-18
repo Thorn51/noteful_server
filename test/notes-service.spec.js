@@ -4,7 +4,7 @@ const knex = require("knex");
 const { makeNotesArray } = require("./notes.fixtures");
 const { makeFoldersArray } = require("./folders.fixtures");
 
-describe("Notes service object", () => {
+describe.skip("Notes service object", () => {
   let db;
 
   before(() => {
